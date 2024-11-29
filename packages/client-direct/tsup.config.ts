@@ -5,17 +5,29 @@ export default defineConfig({
     outDir: "dist",
     sourcemap: true,
     clean: true,
-    format: ["esm"], // Ensure you're targeting CommonJS
+    format: ["esm"],
+    target: "node18",
     external: [
-        "dotenv", // Externalize dotenv to prevent bundling
-        "fs", // Externalize fs to use Node.js built-in module
-        "path", // Externalize other built-ins if necessary
+        // Node.js built-ins
+        "path",
+        "fs",
+        "http",
+        "https",
+        // Native modules and their dependencies
+        "@anush008/tokenizers",
+        "mime-types",
+        "type-is",
+        "multer",
+        "express",
+        // Add any other problematic dependencies here
         "@reflink/reflink",
         "@node-llama-cpp",
-        "https",
-        "http",
         "agentkeepalive",
-        "safe-buffer",
-        // Add other modules you want to externalize
+        "safe-buffer"
     ],
+    platform: 'node',
+    esbuildOptions(options) {
+        options.mainFields = ['module', 'main'];
+        options.conditions = ['import', 'module', 'require', 'default'];
+    }
 });

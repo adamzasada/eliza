@@ -1,5 +1,11 @@
 packages:
-    - "docs"
-    - "packages/*"
-    - "client"
+    - "packages/core"
+    - "packages/adapter-sqlite"
+    - "packages/client-direct"
     - "agent"
+exclude:
+    - "**/client-discord"
+    - "**/plugin-*"
+    - "**/adapter-postgres"
+    - "**/adapter-supabase"
+    - "**/adapter-sqljs"
